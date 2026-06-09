@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>추실된 늑대들은 낙원을 비웃는다</title>
+  <meta name="description" content="추실늑대 소개 웹사이트 프로토타입 v0.3" />
+  <link rel="icon" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gothic+A1:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <svg class="svg-defs" aria-hidden="true">
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.013 0.016" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7"/></filter>
+    <filter id="rough-lg"><feTurbulence type="fractalNoise" baseFrequency="0.011 0.013" numOctaves="3" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="11"/></filter>
+  </svg>
+
+<div id="intro" class="intro" aria-label="intro screen">
+  <div class="intro__mask intro__mask--top"></div>
+  <div class="intro__mask intro__mask--bottom"></div>
+  <div class="intro__noise"></div>
+
+  <div class="intro__center">
+    <p class="intro__eyebrow">PROJECT WOLFCRY / CHUSILWOLF</p>
+
+    <img
+      class="intro__logo-img"
+      src="assets/chusill_Logo.png"
+      alt="추실된 늑대들은 낙원을 비웃는다"
+      draggable="false"
+    />
+
+    <button id="enterBtn" class="enter-btn" type="button">
+      <span>실행</span>
+    </button>
+  </div>
+</div>
+<!-- 인트로 갈아끼움  -->
+
+  <header class="topbar">
+    <a href="#home" class="brand" aria-label="home">追失狼</a>
+    <nav aria-label="main navigation">
+      <a href="#world">세계관</a>
+      <a href="#stage">주무대</a>
+      <a href="#characters">캐릭터소개</a>
+      <a href="#secret" class="lock-link">🔒</a>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero section-snap">
+      <div class="hero__bg"></div>
+      <div class="hero__shade"></div>
+      <div class="hero__content">
+        <p class="eyebrow">THE WOLF INCIDENT / RUPO-SO & RUPO-SA</p>
+        <h2>늑대는 야만적이어서 무서운 것이 아니라,<br/>너무 이성적으로 인간을 낮게 보기 때문에 무섭다.</h2>
+        <p>어느 날부터 세계 곳곳에서 무작위의 인간이 인간이 아닌 존재로 변하기 시작했다. 사람들은 그들을 “늑대”라 불렀지만, 당사자들은 스스로를 루포소와 루포사라 명명했다.</p>
+        <div class="hero__actions">
+          <a href="#world" class="btn btn--primary">세계관 열람</a>
+          <a href="#stage" class="btn btn--ghost">아케디아 지도</a>
+          <a href="#characters" class="btn btn--ghost">인물 기록</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="world" class="world section-block">
+      <div class="section-head">
+        <p class="eyebrow">WORLD / WOLF INCIDENT</p>
+        <h2>세계관</h2>
+        <p>이 디스토피아 세계는 인간과 괴물의 단순한 전쟁이 아니다. 인간 사회 내부에서 무작위로 태어나는 재난이 가족, 법, 국가, 종교, 윤리를 계속 뒤집어놓는 장기 붕괴 상태다.</p>
+      </div>
+
+      <div class="journal" id="worldJournal" data-style="card" aria-label="세계관 목록 상세 패널">
+        <aside class="journal__side">
+          <div class="side__head">
+            <div class="side__plaque"><h2>누군가의 기록</h2></div>
+          </div>
+          <div class="side__scroll">
+            <ul class="list" id="worldList"></ul>
+          </div>
+        </aside>
+        <section class="journal__main">
+          <div class="main__scroll">
+            <div class="journal-detail" id="worldDetail">
+              <p class="detail__eyebrow" id="worldEyebrow"></p>
+              <div class="detail__plaque"><h1 class="detail__title" id="worldTitle"></h1></div>
+              <div class="detail__body" id="worldBody"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="stage" class="stage-section section-block">
+      <div class="section-head">
+        <p class="eyebrow">MAIN STAGE / ACAEDIA</p>
+        <h2>주무대: 아케디아</h2>
+        <p>인간이 절대적 안전을 꿈꾸며 만든 도시. 그러나 절대적 인간성도, 절대적 순수성도, 절대적 분리도 불가능하다는 사실을 깨닫고 체념에 빠진 장소.</p>
+      </div>
+
+      <div class="stage-intro-grid">
+        <article class="lore-card lore-card--wide">
+          <h3>본래 목적</h3>
+          <p>각국은 늑대사태 이후 하나의 결론에 도달했다. “늑대를 박멸할 수 없다.” 그렇다면 최소한 인간만 안전하게 살 수 있는 구역을 만들자. 아케디아는 그렇게 시작된 인간전용 유토피아 구역 계획이다.</p>
+        </article>
+        <article class="lore-card">
+          <h3>CRS</h3>
+          <p>Continuity Reassignment System. 변모 대응 직무승계 시스템. 공식적으로는 업무 연속성 장치지만, 루포 측은 이를 “목줄 시스템”이라 부른다.</p>
+        </article>
+        <article class="lore-card">
+          <h3>공동관리</h3>
+          <p>프로젝트 막바지 총괄 변모로 체계의 한계가 드러났고, 결국 인간담당자와 루포담당자가 공동관리하는 기묘한 도시가 되었다.</p>
+        </article>
+      </div>
+
+      <div class="arcadia-stage" aria-label="아케디아 구역 지도">
+        <div class="district-map" id="districtMap">
+          <div class="map__head">
+            <div class="kr">아케디아</div>
+            <div class="en">Arcadia · District Map</div>
+          </div>
+          <div class="map__frame" id="mapFrame">
+            <img class="map__img" src="assets/arcadia-map.png" alt="아케디아 도시 지도">
+            <svg class="map__svg" id="districtSvg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-label="구역 선택"></svg>
+            <div class="map__tip" id="mapTip"><b id="tipNum"></b><span id="tipName"></span></div>
+          </div>
+          <div class="legend">
+            <span><b>구역</b>을 클릭하면 우측에 정보가 표시됩니다</span>
+            <span class="sep"></span>
+            <span class="locked"><span class="key">6 · 7</span>구역은 지하/내부 시설 — 지도 직접 선택 불가</span>
+          </div>
+        </div>
+
+        <aside class="map-panel">
+          <div class="panel__scroll">
+            <div class="map-empty" id="mapEmpty">
+              <div class="mark"><span>◈</span></div>
+              <p>지도에서 구역을 선택하세요</p>
+              <p class="dim">구역에 손을 올리면 강조 표시됩니다</p>
+            </div>
+            <div class="map-detail" id="mapDetail" hidden>
+              <div class="detail__top">
+                <p class="eyebrow">아케디아 · 구역 정보</p>
+                <button class="map-close" id="mapClose" type="button">✕ 닫기</button>
+              </div>
+              <div class="map-plaque"><h1 class="map-plaque__title" id="mapNum">1구역</h1></div>
+              <h2 class="d-name" id="mapName"></h2>
+              <div class="d-meta" id="mapMeta"></div>
+              <div class="divider"></div>
+              <div class="d-body" id="mapBody"></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+    <div class="underground-control" aria-label="지도 미표시 지하시설 선택">
+      <p class="underground-control__head">
+        <span>UNDERGROUND / INTERIOR FACILITIES</span>
+        <b>지도 미표시 구역</b>
+      </p>
+
+      <div class="underground-buttons">
+        <button type="button" class="underground-btn" data-underground-id="6">
+          <b>6구역</b>
+          <span>지하수로 · 폐쇄 인프라</span>
+        </button>
+
+        <button type="button" class="underground-btn" data-underground-id="7">
+          <b>7구역</b>
+          <span>중앙 장서고 · 기록 보관소</span>
+        </button>
+      </div>
+    </div>
+    </section>
+
+    <section id="characters" class="characters section-block">
+      <div class="section-head">
+        <p class="eyebrow">CHARACTER ARCHIVE</p>
+        <h2>캐릭터 소개</h2>
+        <p>각 인물은 선악이 아니라, 하나의 뒤틀린 질문으로 움직인다. 카드를 선택하면 명함 기록이 열린다.</p>
+      </div>
+      <div id="characterGrid" class="character-grid"></div>
+    </section>
+
+    <section id="secret" class="secret section-block">
+      <div class="secret__box">
+        <p class="eyebrow">CLASSIFIED / LOCKED</p>
+        <h2>비밀정보</h2>
+        <label for="password">REQUIRED PASSWORD</label>
+        <div class="password-row">
+          <input id="password" type="password" placeholder="••••••••••" />
+          <button id="passwordBtn">확인</button>
+        </div>
+        <p id="secretHint" class="secret__hint">아직 당신이 열람하기엔 준비가 부족하군요.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <article class="modal__card" role="dialog" aria-modal="true" aria-labelledby="modalName">
+      <button class="modal__close" data-close aria-label="close">×</button>
+      <div class="modal__image-wrap"><img id="modalImage" alt="" /></div>
+      <div class="modal__body">
+        <p id="modalTag" class="modal__tag"></p>
+        <h3 id="modalName"></h3>
+        <p id="modalRole" class="modal__role"></p>
+        <p id="modalCore" class="modal__core"></p>
+        <dl class="modal__dl">
+          <div><dt>뒤틀림</dt><dd id="modalTwist"></dd></div>
+          <div><dt>U 인간</dt><dd id="modalHuman"></dd></div>
+          <div><dt>U 루포</dt><dd id="modalLupo"></dd></div>
+          <div><dt>TR</dt><dd id="modalTrigger"></dd></div>
+        </dl>
+      </div>
+    </article>
+  </div>
+
+  <footer class="footer">
+    <span>© CHUSILWOLF / prototype site v0.3</span>
+    <span>“낙원은 실패했지만, 도시는 아직 문을 닫지 않았다.”</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
