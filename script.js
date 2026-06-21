@@ -334,11 +334,49 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click', closeModal));
   document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
   const passwordBtn = document.getElementById('passwordBtn');
-  if(passwordBtn){
-    passwordBtn.addEventListener('click',()=>{
-      const hint = document.getElementById('secretHint');
+  const passwordInput = document.getElementById('password');
+
+  // 한글 자모 시그니처: 음절형·분해형(NFD)·호환 자모(ㅈㅗㅇ…) 어떤 형태로 들어와도
+  // 동일한 자모 스트림으로 환원해 비교한다 (IME 입력 형태 차이를 흡수)
+  const _CHO='ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ';
+  const _JUNG='ㅏㅐㅑㅒㅓㅔㅕㅖㅗㅘㅙㅚㅛㅜㅝㅞㅟㅠㅡㅢㅣ';
+  const _JONG=' ㄱㄲㄳㄴㄵㄶㄷㄹㄺㄻㄼㄽㄾㄿㅀㅁㅂㅄㅅㅆㅇㅈㅊㅋㅌㅍㅎ';
+  function jamoSig(str){
+    const d=(str||'').normalize('NFKD');
+    let out='';
+    for(const ch of d){
+      const c=ch.codePointAt(0);
+      if(c>=0x1100&&c<=0x1112) out+=_CHO[c-0x1100];
+      else if(c>=0x1161&&c<=0x1175) out+=_JUNG[c-0x1161];
+      else if(c>=0x11A8&&c<=0x11C2) out+=_JONG[c-0x11A7];
+      else out+=ch;
+    }
+    return out;
+  }
+  const ANSWER_SIG = jamoSig('종회견정');
+
+  function trySecret(){
+    const hint = document.getElementById('secretHint');
+    const raw = (passwordInput ? passwordInput.value : '').trim();
+    const ok = jamoSig(raw) === ANSWER_SIG || raw === '鐘灰繭釘';
+    if(ok){
+      hint.textContent = '봉인이 풀렸다 — 鐘灰繭釘.';
+      hint.classList.add('secret__hint--ok');
+      if(window.openClassified) window.openClassified();
+    } else {
       hint.textContent = '아직 당신이 열람하기엔 준비가 부족하군요.';
+      hint.classList.remove('secret__hint--ok');
       hint.animate([{opacity:.35},{opacity:1}],{duration:400});
+    }
+  }
+  if(passwordBtn){ passwordBtn.addEventListener('click', trySecret); }
+  if(passwordInput){
+    // IME 조합 중 Enter 는 무시 (마지막 글자 확정 전 검사 방지)
+    passwordInput.addEventListener('keydown', e=>{
+      if(e.key !== 'Enter') return;
+      if(e.isComposing || e.keyCode === 229) return;
+      e.preventDefault();
+      trySecret();
     });
   }
 });

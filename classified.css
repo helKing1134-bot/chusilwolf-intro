@@ -1,0 +1,251 @@
+/* ============================================================
+   추실늑대 — 기밀 문서고 (CLASSIFIED ARCHIVE) 스타일
+   styles.css 의 :root 토큰(--red, --gold, --ink 등)을 그대로 사용
+   ============================================================ */
+
+.cls{
+  position:fixed; inset:0; z-index:1200; display:none;
+  font-family:'Gothic A1',system-ui,sans-serif; color:var(--text);
+}
+.cls.is-open, .cls.is-closing{ display:block; }
+body.cls-open{ overflow:hidden; }
+
+/* 진입/퇴장 */
+.cls.is-open{ animation:clsFade .5s ease forwards; }
+.cls.is-closing{ animation:clsFadeOut .42s ease forwards; }
+@keyframes clsFade{ from{opacity:0} to{opacity:1} }
+@keyframes clsFadeOut{ from{opacity:1} to{opacity:0} }
+
+.cls__backdrop{
+  position:absolute; inset:0; cursor:pointer;
+  background:
+    radial-gradient(120% 80% at 50% -6%, rgba(217,34,56,.18), transparent 52%),
+    radial-gradient(80% 60% at 100% 100%, rgba(121,168,255,.07), transparent 55%),
+    linear-gradient(180deg,#05060a 0%,#080a10 45%,#04050a 100%);
+}
+.cls__grain{
+  position:absolute; inset:0; pointer-events:none; z-index:2;
+  background:var(--grain); background-size:200px 200px; opacity:.4; mix-blend-mode:overlay;
+}
+
+/* 봉인 스탬프 (진입 1회) */
+.cls__stamp{
+  position:fixed; inset:0; z-index:30; display:grid; place-items:center;
+  pointer-events:none; opacity:0;
+}
+.cls__stamp span{
+  font-family:'Black Han Sans','Gothic A1',sans-serif; font-weight:400;
+  font-size:clamp(3.6rem,13vw,12rem); letter-spacing:.12em;
+  color:transparent; -webkit-text-stroke:2px rgba(255,48,72,.9);
+  text-shadow:0 0 50px rgba(217,34,56,.6);
+}
+.cls.is-open .cls__stamp{ animation:clsStamp 1.15s cubic-bezier(.2,.9,.2,1) forwards; }
+@keyframes clsStamp{
+  0%{ opacity:0; transform:scale(1.7); filter:blur(8px); }
+  18%{ opacity:1; transform:scale(1.02); filter:blur(0); }
+  30%{ transform:scale(1); }
+  70%{ opacity:.85; }
+  100%{ opacity:0; transform:scale(.94); filter:blur(2px); }
+}
+
+/* 스크롤 영역 */
+.cls__scroll{ position:absolute; inset:0; z-index:5; overflow-y:auto; overflow-x:hidden; }
+.cls__scroll::-webkit-scrollbar{ width:11px; }
+.cls__scroll::-webkit-scrollbar-track{ background:#06070b; }
+.cls__scroll::-webkit-scrollbar-thumb{ background:linear-gradient(#5a1119,#7e0f1a); border-radius:8px; border:2px solid #06070b; }
+.cls__inner{
+  max-width:1160px; margin:0 auto; padding:clamp(48px,6vw,86px) clamp(18px,4vw,52px) 90px;
+  opacity:0; transform:translateY(26px);
+  transition:opacity .8s ease .28s, transform .9s cubic-bezier(.22,1,.36,1) .28s;
+}
+.cls.is-open .cls__inner{ opacity:1; transform:none; }
+
+/* 마스트헤드 */
+.cls__masthead{ position:relative; text-align:center; padding-bottom:8px; margin-bottom:46px; }
+.cls__close{
+  position:absolute; top:0; right:0;
+  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.2); color:#dfe4ec;
+  padding:9px 16px; cursor:pointer; font-weight:700; letter-spacing:.08em; font-size:.84rem;
+  transition:.18s;
+}
+.cls__close:hover{ border-color:var(--red2); color:#fff; box-shadow:0 0 22px rgba(255,48,72,.25); }
+.cls__eyebrow{ margin:0 0 14px; color:var(--red2); font-weight:900; letter-spacing:.34em; font-size:.74rem; text-transform:uppercase; }
+.cls__title{
+  margin:0; font-family:'Black Han Sans','Gothic A1',sans-serif; font-weight:400;
+  font-size:clamp(2.6rem,7vw,5.4rem); letter-spacing:.02em; line-height:1;
+  color:#f4f7fb; text-shadow:0 0 40px rgba(255,48,72,.22);
+}
+.cls__lead{ max-width:760px; margin:22px auto 0; color:#c7ceda; font-size:1.02rem; line-height:1.85; }
+.cls__lead b{ color:var(--gold); font-weight:800; letter-spacing:.02em; }
+.cls__rule{ width:1px; height:54px; margin:34px auto 0; background:linear-gradient(var(--red2),transparent); }
+
+/* 도시에 */
+.dossier{ margin-top:54px; }
+.dossier__tab{
+  display:inline-flex; align-items:baseline; gap:14px; margin-bottom:18px;
+  padding:10px 20px 11px; border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 11px),calc(100% - 11px) 100%,0 100%);
+}
+.dossier__tab span{ color:var(--red2); font-weight:900; letter-spacing:.2em; font-size:.74rem; }
+.dossier__tab b{ font-family:'Black Han Sans','Gothic A1',sans-serif; font-weight:400; font-size:1.18rem; letter-spacing:.02em; color:#eef2f5; }
+.dossier__intro{ max-width:900px; margin:0 0 26px; color:var(--muted); font-size:1.02rem; line-height:1.8; }
+
+/* 공통 텍스트 블록 */
+.cl-block{ margin-top:20px; }
+.cl-label{ margin:0 0 8px; color:var(--red2); font-weight:900; letter-spacing:.12em; font-size:.74rem; text-transform:uppercase; }
+.cl-p{ margin:0 0 10px; color:#dce1ea; line-height:1.82; font-size:.97rem; }
+.cl-p--close{ color:#aab2c0; font-style:italic; border-top:1px solid var(--line); padding-top:16px; margin-top:20px; }
+.cl-list{ margin:0; padding:0; list-style:none; display:grid; gap:7px; }
+.cl-list li{ position:relative; padding-left:18px; color:#dce1ea; line-height:1.6; font-size:.95rem; }
+.cl-list li::before{ content:"—"; position:absolute; left:0; color:var(--gold); }
+.cl-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+.cl-chip{ font-size:.78rem; font-weight:700; letter-spacing:.04em; color:#cdd3dd; padding:5px 12px; border:1px solid var(--line); background:rgba(0,0,0,.25); border-radius:999px; }
+.cl-chip.chip--izumono{ color:var(--gold); border-color:rgba(215,177,106,.4); }
+.cl-chip.chip--akutaha{ color:#ff7a8a; border-color:rgba(255,48,72,.4); }
+
+/* ===== 양대 백작가 ===== */
+.houses{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.house{
+  position:relative; overflow:hidden; isolation:isolate;
+  border:1px solid var(--line); min-height:560px;
+  --ha:var(--gold); --hglow:rgba(215,177,106,.28);
+}
+.house--akutaha{ --ha:var(--red2); --hglow:rgba(255,48,72,.3); }
+.house__bg{ position:absolute; inset:0; background-size:cover; background-position:center; z-index:0; transform:scale(1.04); transition:transform .8s ease; }
+.house:hover .house__bg{ transform:scale(1.09); }
+.house__veil{
+  position:absolute; inset:0; z-index:1;
+  background:linear-gradient(180deg,rgba(5,6,10,.46) 0%,rgba(5,6,10,.74) 42%,rgba(4,5,9,.94) 78%,#04050a 100%);
+}
+.house--izumono .house__veil{ background:linear-gradient(180deg,rgba(4,5,10,.58) 0%,rgba(5,7,13,.82) 45%,rgba(3,4,8,.96) 80%,#03040a 100%); }
+.house__crest{
+  position:absolute; right:-8%; top:8%; width:62%; z-index:1; opacity:.10;
+  filter:grayscale(.2) drop-shadow(0 0 30px rgba(0,0,0,.6)); pointer-events:none; user-select:none;
+}
+.house__inner{ position:relative; z-index:3; padding:26px 26px 30px; display:flex; flex-direction:column; height:100%; }
+.house__head{ display:flex; align-items:center; gap:14px; padding-bottom:16px; border-bottom:1px solid rgba(255,255,255,.14); }
+.house__mark{ width:54px; height:54px; object-fit:contain; flex:0 0 auto; filter:drop-shadow(0 4px 10px rgba(0,0,0,.6)); }
+.house__id{ flex:1 1 auto; min-width:0; }
+.house__reading{ display:block; color:var(--ha); font-weight:800; letter-spacing:.18em; font-size:.7rem; text-transform:uppercase; }
+.house__name{ margin:2px 0 0; font-family:'Black Han Sans','Gothic A1',sans-serif; font-weight:400; font-size:1.9rem; letter-spacing:.03em; color:#f4f7fb; }
+.house__kanji{
+  flex:0 0 auto; font-family:'Black Han Sans','Gothic A1',sans-serif; font-size:2.3rem; line-height:1;
+  color:var(--ha); opacity:.5; text-shadow:0 0 22px var(--hglow);
+}
+.house__line{ margin:16px 0 0; color:#e7ecf4; font-size:1.04rem; line-height:1.7; font-weight:600; }
+.house__line::before{ content:"“"; color:var(--ha); }
+.house__line::after{ content:"”"; color:var(--ha); }
+.house__body{ margin-top:4px; }
+.cl-block--tail{ margin-top:22px; padding-top:18px; border-top:1px solid rgba(255,255,255,.12); }
+
+/* 주박 카드 */
+.sealcard{
+  margin-top:22px; padding:20px 20px 18px; position:relative; overflow:hidden;
+  border:1px solid rgba(255,48,72,.4);
+  background:radial-gradient(120% 100% at 50% 0%, rgba(217,34,56,.16), rgba(10,4,7,.6) 70%);
+  box-shadow:inset 0 0 0 1px rgba(255,48,72,.12), 0 0 30px rgba(217,34,56,.12);
+}
+.sealcard__head{ display:flex; flex-direction:column; gap:4px; }
+.sealcard__tag{ color:var(--red2); font-weight:900; letter-spacing:.2em; font-size:.68rem; }
+.sealcard__name{ margin:0; font-size:1.18rem; color:#fff; font-weight:800; letter-spacing:.04em; }
+.sealcard__name b{ font-family:'Black Han Sans','Gothic A1',sans-serif; font-weight:400; color:var(--red2); margin-left:6px; letter-spacing:.1em; }
+.sealcard__glyphs{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:16px 0 4px; }
+.glyph{ text-align:center; padding:12px 4px 10px; border:1px solid rgba(255,255,255,.12); background:rgba(0,0,0,.32); }
+.glyph b{ display:block; font-family:'Black Han Sans','Gothic A1',sans-serif; font-weight:400; font-size:1.8rem; color:#fff; line-height:1; }
+.glyph span{ display:block; color:var(--red2); font-weight:800; font-size:.74rem; margin:5px 0 6px; letter-spacing:.06em; }
+.glyph small{ display:block; color:#aeb6c2; font-size:.66rem; line-height:1.35; }
+.sealcard__foot{ margin:14px 0 0; color:#d3d9e2; font-size:.9rem; line-height:1.7; }
+.sealcard__foot b{ color:var(--gold); font-weight:800; }
+.sealcard__foot em{ display:block; margin-top:8px; color:#ff9aa6; font-style:italic; font-weight:600; }
+
+/* ===== 공동관리청 ===== */
+.reps{ display:grid; grid-template-columns:1fr auto 1fr; gap:0; align-items:stretch; border:1px solid var(--line); background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.008)); }
+.rep{ padding:26px 24px; position:relative; }
+.rep--human{ border-right:0; }
+.rep--lupo{ border-left:0; }
+.rep__head{ display:flex; align-items:center; gap:14px; padding-bottom:14px; border-bottom:1px solid rgba(255,255,255,.14); }
+.rep__kanji{ font-family:'Black Han Sans','Gothic A1',sans-serif; font-size:2.2rem; line-height:1; flex:0 0 auto; width:54px; height:54px; display:grid; place-items:center; border:1px solid var(--line); }
+.rep--human .rep__kanji{ color:var(--blue); border-color:rgba(121,168,255,.4); background:rgba(121,168,255,.06); }
+.rep--lupo .rep__kanji{ color:var(--gold); border-color:rgba(215,177,106,.4); background:rgba(215,177,106,.06); }
+.rep__name{ margin:0; font-size:1.5rem; color:#f4f7fb; font-weight:800; letter-spacing:.01em; }
+.rep__meta{ margin:3px 0 0; color:var(--muted); font-size:.84rem; font-weight:600; letter-spacing:.02em; }
+.rep__look{ margin:16px 0 0; color:#c3cad6; font-size:.92rem; line-height:1.7; font-style:italic; }
+.cl-block--inner .cl-label{ color:var(--gold); }
+.cl-block--inner{ padding:14px 16px; background:rgba(0,0,0,.3); border-left:2px solid var(--gold); }
+.rep__quote{
+  margin:18px 0 0; padding:14px 16px; color:#fbe8c6; font-size:.98rem; line-height:1.7; font-weight:600;
+  border:1px solid rgba(215,177,106,.32); background:rgba(215,177,106,.07); border-radius:2px;
+}
+.reps__vs{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; padding:0 18px; position:relative; background:linear-gradient(180deg,transparent,rgba(217,34,56,.06),transparent); }
+.reps__vs::before{ content:""; position:absolute; top:8%; bottom:8%; width:1px; background:linear-gradient(transparent,var(--line),transparent); }
+.reps__vsmark{ font-family:'Black Han Sans','Gothic A1',sans-serif; font-size:1.5rem; color:var(--red2); text-shadow:0 0 18px rgba(255,48,72,.4); letter-spacing:.06em; }
+.reps__vslabel{ writing-mode:vertical-rl; color:var(--muted); font-size:.74rem; font-weight:800; letter-spacing:.3em; }
+.cl-block--relation{ margin-top:22px; }
+
+/* 경보 카드 (10구역 실종) */
+.alertcard{
+  margin-top:24px; padding:22px 22px 18px; position:relative;
+  border:1px solid rgba(255,48,72,.34); background:repeating-linear-gradient(45deg,rgba(217,34,56,.05) 0 14px,transparent 14px 28px), linear-gradient(180deg,rgba(20,8,12,.7),rgba(8,5,8,.6));
+}
+.alertcard__head{ display:flex; align-items:baseline; gap:14px; margin-bottom:6px; }
+.alertcard__sig{ color:var(--red2); font-weight:900; letter-spacing:.14em; font-size:.76rem; }
+.alertcard__head h4{ margin:0; font-family:'Black Han Sans','Gothic A1',sans-serif; font-weight:400; font-size:1.4rem; color:#fff; letter-spacing:.02em; }
+.alertcard__rumors{ margin:14px 0 4px; padding-left:0; list-style:none; counter-reset:r; display:grid; gap:8px; }
+.alertcard__rumors li{ position:relative; padding:9px 12px 9px 40px; counter-increment:r; color:#dce1ea; font-size:.93rem; line-height:1.55; background:rgba(0,0,0,.28); border-left:1px solid rgba(255,48,72,.3); }
+.alertcard__rumors li::before{ content:counter(r,decimal-leading-zero); position:absolute; left:12px; top:9px; color:var(--red2); font-weight:900; font-size:.82rem; letter-spacing:.04em; }
+
+/* ===== 9구역 항만 ===== */
+.harbor{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:22px; }
+.faction{ position:relative; padding:22px 22px 24px; border:1px solid var(--line); overflow:hidden; }
+.faction--red{ background:radial-gradient(110% 90% at 0% 0%, rgba(217,34,56,.16), transparent 60%); border-color:rgba(217,34,56,.32); }
+.faction--blue{ background:radial-gradient(110% 90% at 100% 0%, rgba(121,168,255,.16), transparent 60%); border-color:rgba(121,168,255,.32); }
+.faction__dot{ width:14px; height:14px; border-radius:50%; margin-bottom:12px; }
+.faction--red .faction__dot{ background:var(--red2); box-shadow:0 0 16px rgba(255,48,72,.8); }
+.faction--blue .faction__dot{ background:var(--blue); box-shadow:0 0 16px rgba(121,168,255,.8); }
+.faction__name{ margin:0 0 8px; font-family:'Black Han Sans','Gothic A1',sans-serif; font-weight:400; font-size:1.4rem; }
+.faction--red .faction__name{ color:#ff8593; }
+.faction--blue .faction__name{ color:#9cc0ff; }
+.faction__desc{ margin:0; color:#cdd3dd; font-size:.95rem; line-height:1.7; }
+.rumors{ padding:20px 22px; border:1px solid var(--line); background:rgba(255,255,255,.02); margin-bottom:18px; }
+.rumor{ margin:0; padding:9px 0; color:#d7dde6; font-size:1rem; line-height:1.5; border-bottom:1px dashed rgba(255,255,255,.1); font-style:italic; }
+.rumor:last-child{ border-bottom:0; }
+.rumors .cl-label{ margin-bottom:10px; }
+
+/* 푸터 */
+.cls__foot{ margin-top:64px; padding-top:28px; border-top:1px solid var(--line); text-align:center; }
+.cls__footmark{ display:block; font-family:'Black Han Sans','Gothic A1',sans-serif; font-size:1.6rem; letter-spacing:.4em; color:#3a2228; }
+.cls__foot p{ margin:14px 0 20px; color:var(--muted); font-size:.9rem; letter-spacing:.02em; }
+.cls__reseal{
+  background:linear-gradient(135deg,var(--red),#761020); color:#fff; border:1px solid var(--red);
+  padding:13px 30px; font-weight:800; letter-spacing:.12em; cursor:pointer; transition:.2s;
+  box-shadow:0 0 24px rgba(217,34,56,.22);
+}
+.cls__reseal:hover{ transform:translateY(-2px); box-shadow:0 0 34px rgba(255,48,72,.4); }
+
+/* 비밀 힌트 성공 상태 */
+.secret__hint--ok{ color:var(--gold)!important; font-weight:700; letter-spacing:.06em; }
+
+/* 반응형 */
+@media (max-width:900px){
+  .houses{ grid-template-columns:1fr; }
+  .house{ min-height:0; }
+  .reps{ grid-template-columns:1fr; }
+  .rep--human{ border-right:1px solid var(--line); border-bottom:0; }
+  .reps__vs{ flex-direction:row; padding:14px; }
+  .reps__vs::before{ top:auto; bottom:auto; left:8%; right:8%; width:auto; height:1px; }
+  .reps__vslabel{ writing-mode:horizontal-tb; }
+  .harbor{ grid-template-columns:1fr; }
+  .sealcard__glyphs{ grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:560px){
+  .cls__close{ position:static; display:inline-block; margin-bottom:18px; }
+  .house__name{ font-size:1.5rem; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .cls.is-open, .cls.is-closing{ animation:none; }
+  .cls__inner{ transition:none; opacity:1; transform:none; }
+  .cls.is-open .cls__stamp{ animation:none; opacity:0; }
+  .house__bg{ transition:none; }
+}

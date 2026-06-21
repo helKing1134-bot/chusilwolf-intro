@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gothic+A1:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="classified.css" />
 </head>
 <body>
   <svg class="svg-defs" aria-hidden="true">
@@ -190,7 +191,7 @@
         <h2>비밀정보</h2>
         <label for="password">REQUIRED PASSWORD</label>
         <div class="password-row">
-          <input id="password" type="password" placeholder="••••••••••" />
+          <input id="password" type="text" placeholder="••••••••••" />
           <button id="passwordBtn">확인</button>
         </div>
         <p id="secretHint" class="secret__hint">아직 당신이 열람하기엔 준비가 부족하군요.</p>
@@ -219,10 +220,14 @@
   </div>
 
   <footer class="footer">
-    <span>© CHUSILWOLF / prototype site v0.3</span>
-    <span>“낙원은 실패했지만, 도시는 아직 문을 닫지 않았다.”</span>
+    <span>© CHUSILWOLF / prototype site v0.4</span>
+    <span>https://arca.live/b/aizo</span>
   </footer>
 
+  <!-- 기밀 문서고 마운트 지점 (classified.js 가 내용을 채운다) -->
+  <div id="classified" class="cls" aria-hidden="true"></div>
+
   <script src="script.js"></script>
+  <script src="classified.js"></script>
 </body>
 </html>
